@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Request a quote from Shiv Foundry Traders — share your drawing, 3D model or sample and we'll quote based on material, grade, tolerance and quantity.">
+<title>Get a Quote — Shiv Foundry Traders</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --iron:#17181a;
+    --iron-2:#232629;
+    --steel:#4d5763;
+    --steel-light:#8b93a0;
+    --paper:#eeece6;
+    --paper-2:#e2dfd6;
+    --glow:#d9642c;
+    --glow-dim:#b5501e;
+    --line: rgba(238,236,230,0.14);
+    --line-dark: rgba(23,24,26,0.14);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--iron);
+    font-family:'Work Sans', sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:700;
+    letter-spacing:0.01em;
+    line-height:1.05;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  /* ---------- HEADER ---------- */
+  .topbar{
+    background:var(--iron-2);
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+  }
+  .topbar-inner{
+    display:flex; gap:28px; padding:7px 28px;
+    font-size:0.74rem; color:var(--steel-light);
+    letter-spacing:0.01em;
+    white-space:nowrap; overflow-x:auto;
+  }
+  .topbar-inner::-webkit-scrollbar{display:none;}
+  header{
+    position:sticky; top:0; z-index:50;
+    background:var(--iron);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 0;
+    color:var(--paper);
+  }
+  .brand{
+    display:flex; flex-direction:column; gap:1px;
+  }
+  .brand .name{
+    font-family:'Barlow Condensed', sans-serif;
+    font-size:1.5rem; font-weight:800; color:var(--paper);
+    letter-spacing:0.02em;
+  }
+  .brand .tag{
+    font-size:0.68rem; color:var(--steel-light);
+    letter-spacing:0.08em;
+  }
+  .navlinks{display:flex; gap:32px; font-size:0.92rem;}
+  .navlinks a{color:var(--paper); opacity:0.82; border-bottom:1px solid transparent; padding-bottom:3px;}
+  .navlinks a:hover, .navlinks a.active{opacity:1; border-color:var(--glow);}
+  .navcta{
+    background:var(--glow); color:var(--iron);
+    padding:9px 18px; font-weight:600; font-size:0.88rem;
+    border:1px solid var(--glow);
+  }
+  .navcta:hover{background:transparent; color:var(--paper);}
+  .burger{display:none; color:var(--paper); font-size:1.6rem; cursor:pointer; background:none; border:none;}
+
+  @media (max-width:820px){
+    .navlinks{
+      position:absolute; top:100%; left:0; right:0;
+      background:var(--iron);
+      flex-direction:column; gap:0;
+      max-height:0; overflow:hidden;
+      border-bottom:1px solid var(--line);
+      transition:max-height 0.3s ease;
+    }
+    .navlinks.open{max-height:320px;}
+    .navlinks a{padding:14px 28px; border-bottom:1px solid var(--line);}
+    .navcta{display:none;}
+    .burger{display:block;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:
+      radial-gradient(ellipse 900px 500px at 82% -10%, rgba(217,100,44,0.20), transparent 60%),
+      linear-gradient(180deg, var(--iron) 0%, var(--iron-2) 100%);
+    color:var(--paper);
+    padding:88px 0 76px;
+    position:relative;
+    overflow:hidden;
+    border-bottom:1px solid var(--line);
+    min-height:560px;
+  }
+  .hero-video{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    object-position:center center;
+    display:block;
+    z-index:0;
+    opacity:0.8;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(15,16,17,0.55) 0%, rgba(15,16,17,0.8) 100%);
+    z-index:0;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(238,236,230,0.035) 0 1px, transparent 1px 64px),
+      repeating-linear-gradient(90deg, rgba(238,236,230,0.035) 0 1px, transparent 1px 64px);
+    pointer-events:none;
+    z-index:0;
+  }
+  .hero-inner{position:relative; z-index:1; display:grid; grid-template-columns:1.3fr 1fr; gap:48px; align-items:end;}
+  .hero h1, .hero .hero-eyebrow, .hero p.lead{
+    text-shadow:0 2px 12px rgba(0,0,0,0.6);
+  }
+  .hero-eyebrow{
+    font-size:0.78rem; color:var(--glow); font-weight:600;
+    margin-bottom:18px; letter-spacing:0.03em;
+  }
+  .hero h1{
+    font-size:clamp(2.6rem, 5vw, 4.2rem);
+    color:var(--paper);
+    max-width:12ch;
+  }
+  .hero h1 em{
+    font-style:normal; color:var(--glow);
+  }
+  .hero p.lead{
+    margin-top:22px; max-width:46ch; font-size:1.08rem; color:var(--steel-light);
+  }
+  .hero-actions{display:flex; gap:14px; margin-top:34px; flex-wrap:wrap;}
+  .btn{
+    display:inline-block; padding:13px 26px; font-weight:600; font-size:0.95rem;
+    border:1px solid var(--glow);
+  }
+  .btn-solid{background:var(--glow); color:var(--iron);}
+  .btn-solid:hover{background:var(--glow-dim); border-color:var(--glow-dim);}
+  .btn-outline{color:var(--paper); border-color:var(--line);}
+  .btn-outline:hover{border-color:var(--paper);}
+
+  .hero-panel{
+    border:1px solid var(--line);
+    background:rgba(238,236,230,0.03);
+    padding:26px;
+  }
+  .hero-panel .row{
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding:14px 0; border-bottom:1px solid var(--line);
+  }
+  .hero-panel .row:last-child{border-bottom:none;}
+  .hero-panel .row .k{font-size:0.82rem; color:var(--steel-light);}
+  .hero-panel .row .v{font-family:'Barlow Condensed'; font-size:1.6rem; font-weight:700; color:var(--paper);}
+
+  @media (max-width:900px){
+    .hero-inner{grid-template-columns:1fr;}
+    .hero h1{max-width:none;}
+  }
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section{padding:74px 0;}
+  .section-head{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    gap:24px; margin-bottom:40px; border-bottom:1px solid var(--line-dark); padding-bottom:22px;
+  }
+  .section-head h2{font-size:clamp(1.9rem, 3.4vw, 2.6rem);}
+  .section-head p{max-width:34ch; color:var(--steel); font-size:0.96rem;}
+  .kicker{font-size:0.78rem; color:var(--glow-dim); font-weight:600; margin-bottom:10px;}
+
+  /* ---------- SERVICES GRID ---------- */
+  .grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:1px;
+    background:var(--line-dark);
+    border:1px solid var(--line-dark);
+  }
+  .card{
+    background:var(--paper);
+    padding:30px 26px;
+    position:relative;
+  }
+  .card .num{
+    font-family:'Barlow Condensed'; font-size:0.8rem; color:var(--glow-dim); font-weight:700;
+  }
+  .card h3{font-size:1.4rem; margin-top:10px; margin-bottom:10px;}
+  .card p{font-size:0.9rem; color:var(--steel); max-width:34ch;}
+  @media (max-width:900px){ .grid{grid-template-columns:repeat(2,1fr);} .pulse-grid{grid-template-columns:1fr;} }
+  @media (max-width:600px){ .grid{grid-template-columns:1fr;} }
+
+  /* ---------- PROCESS STRIP ---------- */
+  .strip{background:var(--iron-2); color:var(--paper); padding:56px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .strip .wrap{display:grid; grid-template-columns:repeat(4,1fr); gap:32px;}
+  .strip .item .big{font-family:'Barlow Condensed'; font-size:2.6rem; font-weight:800; color:var(--glow);}
+  .strip .item .lbl{font-size:0.86rem; color:var(--steel-light); margin-top:4px;}
+  @media (max-width:800px){ .strip .wrap{grid-template-columns:repeat(2,1fr);} }
+
+  /* ---------- PRODUCT GALLERY ---------- */
+  .pgrid{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:1px;
+    background:var(--line-dark); border:1px solid var(--line-dark);
+  }
+  .pcard{ background:var(--paper); }
+  .pcard .thumb{
+    aspect-ratio:1/1; overflow:hidden; background:var(--iron-2);
+  }
+  .pcard .thumb img{
+    width:100%; height:100%; object-fit:cover; display:block;
+  }
+  .pcard .cap{
+    padding:12px 14px; font-size:0.86rem; font-weight:600;
+    border-top:1px solid var(--line-dark);
+  }
+  @media (max-width:900px){ .pgrid{grid-template-columns:repeat(3,1fr);} }
+  @media (max-width:600px){ .pgrid{grid-template-columns:repeat(2,1fr);} }
+
+  .wgrid{
+    display:grid; grid-template-columns:repeat(5, 1fr); gap:8px;
+  }
+  .wgrid .thumb{
+    aspect-ratio:1/1; overflow:hidden; background:var(--iron-2); border:1px solid var(--line-dark);
+  }
+  .wgrid .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+  @media (max-width:900px){ .wgrid{grid-template-columns:repeat(4,1fr);} }
+  @media (max-width:600px){ .wgrid{grid-template-columns:repeat(3,1fr);} }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;}
+  .about-grid h2{font-size:clamp(1.9rem,3.4vw,2.6rem); margin-bottom:20px;}
+  .about-grid p{color:var(--steel); margin-bottom:14px; max-width:52ch;}
+  .capsule-list{list-style:none; margin-top:22px;}
+  .capsule-list li{
+    padding:14px 0; border-top:1px solid var(--line-dark);
+    display:flex; gap:14px; align-items:baseline; font-size:0.94rem;
+  }
+  .capsule-list li:last-child{border-bottom:1px solid var(--line-dark);}
+  .capsule-list li .mk{color:var(--glow-dim); font-weight:700; font-family:'Barlow Condensed';}
+
+  .materials{
+    border:1px solid var(--line-dark); padding:28px;
+    background:var(--paper-2);
+  }
+  .materials h4{font-size:0.82rem; text-transform:none; color:var(--steel); font-weight:600; margin-bottom:16px; font-family:'Work Sans';}
+  .tagset{display:flex; flex-wrap:wrap; gap:10px;}
+  .tagset span{
+    border:1px solid var(--line-dark); padding:7px 14px; font-size:0.85rem; background:var(--paper);
+  }
+
+  /* ---------- INVENTORY / PARTS AVAILABLE ---------- */
+  .inv-grid{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:1px;
+    background:var(--line-dark); border:1px solid var(--line-dark);
+  }
+  .inv-card{ background:var(--paper); }
+  .inv-thumb{ aspect-ratio:1/1; overflow:hidden; background:var(--iron-2); }
+  .inv-thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .inv-body{ padding:12px 14px 14px; }
+  .inv-name{ font-size:0.86rem; font-weight:600; margin-bottom:10px; color:var(--iron); }
+  .inv-btn{
+    display:block; text-align:center; padding:8px 10px;
+    background:var(--glow); color:var(--iron); font-weight:600; font-size:0.82rem;
+    border:1px solid var(--glow);
+  }
+  .inv-btn:hover{ background:transparent; color:var(--glow-dim); }
+  @media (max-width:900px){ .inv-grid{grid-template-columns:repeat(3,1fr);} }
+  @media (max-width:600px){ .inv-grid{grid-template-columns:repeat(2,1fr);} }
+
+  /* ---------- MARKET PULSE ---------- */
+  .pulse-grid{
+    display:grid; grid-template-columns:1.3fr 1fr; gap:1px;
+    background:var(--line-dark); border:1px solid var(--line-dark);
+  }
+  .pulse-card{
+    background:var(--paper); padding:28px;
+  }
+  .poll-options{display:flex; flex-direction:column; gap:12px;}
+  .poll-btn{
+    display:flex; align-items:center; gap:10px;
+    background:none; border:1px solid var(--line-dark);
+    padding:10px 12px; cursor:pointer; text-align:left;
+    font-family:'Work Sans', sans-serif;
+    transition:border-color 0.2s;
+  }
+  .poll-btn:hover{border-color:var(--glow-dim);}
+  .poll-btn.voted{border-color:var(--glow); background:rgba(217,100,44,0.05);}
+  .poll-label{flex:0 0 150px; font-size:0.85rem; color:var(--iron); font-weight:500;}
+  .poll-bar-track{
+    flex:1; height:8px; background:var(--paper-2); position:relative; overflow:hidden;
+  }
+  .poll-bar-fill{
+    display:block; height:100%; width:0%; background:var(--glow);
+    transition:width 0.5s ease;
+  }
+  .poll-pct{flex:0 0 40px; text-align:right; font-size:0.8rem; color:var(--steel); font-weight:600;}
+
+  /* ---------- CONTACT ---------- */
+  .contact{
+    background:var(--iron); color:var(--paper);
+  }
+  .contact .section-head p{color:var(--steel-light);}
+  .contact .section-head{border-bottom:1px solid var(--line);}
+  .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px;}
+  .contact-list{list-style:none;}
+  .contact-list li{
+    display:flex; gap:18px; padding:20px 0; border-top:1px solid var(--line);
+  }
+  .contact-list li:last-child{border-bottom:1px solid var(--line);}
+  .contact-list .lbl{width:110px; flex-shrink:0; font-size:0.8rem; color:var(--steel-light);}
+  .contact-list .val{font-size:1.05rem; font-family:'Barlow Condensed'; font-weight:600; letter-spacing:0.01em;}
+  .contact-list a.val:hover{color:var(--glow);}
+
+  .cta-box{
+    border:1px solid var(--line); padding:32px; background:rgba(238,236,230,0.03);
+    display:flex; flex-direction:column; justify-content:center;
+  }
+  .cta-box h3{font-size:1.7rem; margin-bottom:12px;}
+  .cta-box p{color:var(--steel-light); margin-bottom:24px; font-size:0.95rem;}
+
+  @media (max-width:800px){ .contact-grid, .about-grid{grid-template-columns:1fr;} }
+
+  footer{
+    background:var(--iron); color:var(--steel-light); font-size:0.82rem;
+    padding:20px 0; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+
+  /* ---------- HERO — SEARCH FORMAT ---------- */
+  .hero{
+    background:
+      radial-gradient(ellipse 900px 500px at 82% -10%, rgba(217,100,44,0.16), transparent 60%),
+      linear-gradient(180deg, var(--iron) 0%, var(--iron-2) 100%);
+    color:var(--paper);
+    padding:64px 0 56px;
+    position:relative;
+    overflow:hidden;
+    border-bottom:1px solid var(--line);
+    min-height:0;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(238,236,230,0.03) 0 1px, transparent 1px 64px),
+      repeating-linear-gradient(90deg, rgba(238,236,230,0.03) 0 1px, transparent 1px 64px);
+    pointer-events:none;
+    z-index:0;
+  }
+  .hero-search-wrap{position:relative; z-index:1; max-width:720px; margin:0 auto; text-align:center;}
+  .hero-mark{display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:6px;}
+  .hero-mark .dot{width:9px; height:9px; background:var(--glow); border-radius:50%;}
+  .hero-search-wrap .hero-eyebrow{
+    font-size:0.78rem; color:var(--glow); font-weight:600;
+    margin-bottom:10px; letter-spacing:0.03em; text-align:center;
+  }
+  .hero-search-wrap h1{
+    font-size:clamp(2rem, 4.6vw, 3.1rem);
+    color:var(--paper);
+    text-shadow:0 2px 12px rgba(0,0,0,0.5);
+  }
+  .hero-search-wrap h1 em{font-style:normal; color:var(--glow);}
+  .hero-search-wrap p.lead{
+    margin:14px auto 0; max-width:50ch; font-size:1rem; color:var(--steel-light);
+  }
+
+  .search-box{
+    margin:30px auto 0; max-width:600px;
+    display:flex; align-items:center; gap:10px;
+    background:var(--paper); border:1px solid var(--line-dark);
+    border-radius:999px; padding:6px 8px 6px 22px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.35);
+  }
+  .search-box svg{flex-shrink:0; color:var(--steel);}
+  .search-box input{
+    flex:1; border:none; outline:none; background:none;
+    font-family:'Work Sans', sans-serif; font-size:1rem; color:var(--iron);
+    padding:12px 0;
+  }
+  .search-box input::placeholder{color:var(--steel-light);}
+  .search-box button{
+    border:none; background:var(--glow); color:var(--iron);
+    font-weight:600; font-size:0.9rem; padding:12px 22px;
+    border-radius:999px; cursor:pointer; white-space:nowrap;
+  }
+  .search-box button:hover{background:var(--glow-dim);}
+
+  .search-chips{
+    display:flex; flex-wrap:wrap; gap:9px; justify-content:center;
+    margin-top:16px;
+  }
+  .search-chips button{
+    border:1px solid var(--line); background:rgba(238,236,230,0.05); color:var(--paper);
+    font-size:0.82rem; padding:7px 15px; border-radius:999px; cursor:pointer;
+    font-family:'Work Sans', sans-serif;
+  }
+  .search-chips button:hover{border-color:var(--glow); color:var(--glow);}
+
+  .hero-actions{display:flex; gap:14px; margin-top:24px; flex-wrap:wrap; justify-content:center;}
+  .btn{
+    display:inline-block; padding:13px 26px; font-weight:600; font-size:0.95rem;
+    border:1px solid var(--glow);
+  }
+  .btn-solid{background:var(--glow); color:var(--iron);}
+  .btn-solid:hover{background:var(--glow-dim); border-color:var(--glow-dim);}
+  .btn-outline{color:var(--paper); border-color:var(--line);}
+  .btn-outline:hover{border-color:var(--paper);}
+
+  /* Contained (not full-screen) video frame — sits under the search, comfortable on laptop & mobile */
+  .hero-video-frame{
+    position:relative; z-index:1;
+    max-width:820px; margin:38px auto 0;
+    border-radius:16px; overflow:hidden;
+    border:1px solid var(--line);
+    box-shadow:0 20px 50px rgba(0,0,0,0.4);
+    aspect-ratio:16/7;
+    background:var(--iron-2);
+  }
+  .hero-video-frame video{
+    width:100%; height:100%; object-fit:cover; display:block;
+  }
+  .hero-video-frame .frame-caption{
+    position:absolute; left:16px; bottom:14px;
+    background:rgba(15,16,17,0.55); backdrop-filter:blur(3px);
+    color:var(--paper); font-size:0.76rem; padding:6px 12px;
+    border-radius:999px; border:1px solid rgba(238,236,230,0.18);
+  }
+  @media (max-width:700px){
+    .hero{padding:44px 0 40px;}
+    .search-box{flex-wrap:wrap; border-radius:20px; padding:14px;}
+    .search-box input{width:100%; padding:6px 4px;}
+    .search-box button{width:100%; text-align:center;}
+    .hero-video-frame{aspect-ratio:4/5; max-height:340px; margin-top:28px; border-radius:12px;}
+  }
+
+  /* ---------- TRUST STRIP ---------- */
+  .trust-strip{background:var(--paper-2); border-bottom:1px solid var(--line-dark); padding:36px 0;}
+  .trust-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:22px;}
+  .trust-item{display:flex; align-items:center; gap:14px;}
+  .trust-item .ic{
+    flex-shrink:0; width:44px; height:44px; border-radius:50%;
+    background:var(--paper); border:1px solid var(--line-dark);
+    display:flex; align-items:center; justify-content:center; color:var(--glow-dim);
+  }
+  .trust-item .tt{font-family:'Barlow Condensed'; font-size:1.05rem; font-weight:700; color:var(--iron); line-height:1.15;}
+  .trust-item .ts{font-size:0.78rem; color:var(--steel);}
+  @media (max-width:900px){ .trust-grid{grid-template-columns:repeat(2,1fr);} }
+
+  /* ---------- PRODUCT VIEW TABS (photo / drawing / cross-section in one frame) ---------- */
+  .view-card{ background:var(--paper); display:flex; flex-direction:column; }
+  .view-stage{
+    aspect-ratio:1/1; position:relative; overflow:hidden; background:var(--iron-2);
+  }
+  .view-pane{
+    position:absolute; inset:0; display:none;
+    align-items:center; justify-content:center;
+  }
+  .view-pane.active{display:flex;}
+  .view-pane img{width:100%; height:100%; object-fit:cover; display:block;}
+  .view-pane.draw, .view-pane.section{background:#0f2338;}
+  .view-tabs{
+    display:flex; border-top:1px solid var(--line-dark); border-bottom:1px solid var(--line-dark);
+  }
+  .view-tabs button{
+    flex:1; border:none; background:var(--paper-2); color:var(--steel);
+    font-family:'Work Sans'; font-size:0.7rem; font-weight:600; letter-spacing:0.02em;
+    padding:8px 4px; cursor:pointer; border-right:1px solid var(--line-dark);
+  }
+  .view-tabs button:last-child{border-right:none;}
+  .view-tabs button.active{background:var(--paper); color:var(--glow-dim);}
+  .view-card .cap{
+    padding:12px 14px 4px; font-size:0.86rem; font-weight:600;
+  }
+  .view-card .vprice{
+    padding:0 14px 12px; font-size:0.8rem; color:var(--steel);
+  }
+  .view-card .vprice b{color:var(--iron); font-family:'Barlow Condensed'; font-size:0.98rem;}
+  .view-card .vfoot{ padding:0 14px 14px; display:flex; gap:8px; }
+  .qty-check{
+    display:flex; align-items:center; gap:6px; font-size:0.78rem; color:var(--steel);
+    border:1px solid var(--line-dark); padding:8px 10px; cursor:pointer; user-select:none;
+  }
+  .qty-check input{accent-color:var(--glow); width:14px; height:14px;}
+
+  /* ---------- PRICE LIST ---------- */
+  .price-note{
+    border:1px solid var(--line-dark); background:var(--paper-2);
+    padding:14px 18px; font-size:0.85rem; color:var(--steel); margin-bottom:24px;
+  }
+  .price-table{width:100%; border-collapse:collapse; border:1px solid var(--line-dark);}
+  .price-table th{
+    text-align:left; font-family:'Work Sans'; font-size:0.76rem; letter-spacing:0.02em;
+    color:var(--steel); font-weight:600; padding:12px 16px; background:var(--paper-2);
+    border-bottom:1px solid var(--line-dark);
+  }
+  .price-table td{
+    padding:14px 16px; border-bottom:1px solid var(--line-dark); font-size:0.92rem; vertical-align:middle;
+  }
+  .price-table tr:last-child td{border-bottom:none;}
+  .price-table .pname{font-weight:600; color:var(--iron);}
+  .price-table .prange{font-family:'Barlow Condensed'; font-size:1.05rem; font-weight:700; color:var(--glow-dim); white-space:nowrap;}
+  .price-table .pmoq{color:var(--steel); font-size:0.82rem;}
+  .price-table .prow-btn{
+    display:inline-block; padding:8px 14px; font-size:0.8rem; font-weight:600;
+    border:1px solid var(--iron); color:var(--iron); white-space:nowrap;
+  }
+  .price-table .prow-btn:hover{background:var(--iron); color:var(--paper);}
+  @media (max-width:700px){
+    .price-table thead{display:none;}
+    .price-table, .price-table tbody, .price-table tr, .price-table td{display:block; width:100%;}
+    .price-table tr{border-bottom:1px solid var(--line-dark); padding:14px 4px;}
+    .price-table td{border:none; padding:4px 12px;}
+    .price-table td::before{content:attr(data-lbl); display:block; font-size:0.7rem; color:var(--steel); margin-bottom:2px;}
+  }
+
+  /* ---------- QUOTE CART BAR ---------- */
+  .quote-bar{
+    position:fixed; left:0; right:0; bottom:0; z-index:60;
+    background:var(--iron); color:var(--paper); border-top:1px solid var(--line);
+    transform:translateY(120%); transition:transform 0.3s ease;
+    box-shadow:0 -8px 30px rgba(0,0,0,0.3);
+  }
+  .quote-bar.show{transform:translateY(0);}
+  .quote-bar .wrap{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 28px;}
+  .quote-bar .qb-count{font-size:0.9rem;}
+  .quote-bar .qb-count b{color:var(--glow); font-family:'Barlow Condensed'; font-size:1.2rem;}
+  .quote-bar .qb-actions{display:flex; gap:10px;}
+  .quote-bar .qb-clear{
+    background:none; border:1px solid var(--line); color:var(--paper);
+    font-size:0.82rem; padding:9px 14px; cursor:pointer;
+  }
+  @media (max-width:600px){ .quote-bar .wrap{padding:12px 16px; flex-wrap:wrap;} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand">
+      <span class="name">SHIV FOUNDRY TRADERS</span>
+      <span class="tag">CASTING &amp; ENGINEERING PARTS · KANPUR</span>
+    </div>
+    <nav class="navlinks" id="navlinks">
+      <a href="index.html">Home</a>
+      <a href="services.html">Products</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="components.html">Components Catalog</a>
+      <a href="quote.html" class="active">Get a Quote</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a href="contact.html" class="navcta">Get a Quote</a>
+    <button class="burger" id="burgerBtn" aria-label="Toggle menu">☰</button>
+  </div>
+</header>
+
+<section class="section" id="price-list" style="background:var(--paper-2); border-top:1px solid var(--line-dark); border-bottom:1px solid var(--line-dark);">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="kicker">GET A QUOTE</div>
+        <h2>Every part, quoted to spec.</h2>
+      </div>
+      <p>Casting &amp; fabrication cost depends on size, material grade and finish — no fixed price list.</p>
+    </div>
+    <div class="price-note">We don't publish fixed prices because casting and machining cost genuinely varies with size, material grade, tolerance and quantity. Share your drawing, sample or requirement below and we'll come back with an accurate quote — tap "Request quote" on any row, or use the tick-boxes above to send a combined enquiry.</div>
+    <table class="price-table">
+      <thead><tr><th>Part</th><th>Material</th><th>MOQ</th><th></th></tr></thead>
+      <tbody id="priceListBody"></tbody>
+    </table>
+  </div>
+</section>
+<section class="section" id="drawing" style="background:var(--paper-2); border-top:1px solid var(--line-dark); border-bottom:1px solid var(--line-dark);">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="kicker">DRAWING &amp; DESIGN SUPPORT</div>
+        <h2>From drawing to finished part.</h2>
+      </div>
+      <p>Send us a 2D drawing, a 3D model, or just a sample — we coordinate the design and manufacturing end-to-end.</p>
+    </div>
+    <div class="grid" style="grid-template-columns:repeat(2,1fr);">
+      <div class="card">
+        <svg width="44" height="44" viewBox="0 0 48 48" fill="none" style="margin-bottom:14px;">
+          <rect x="6" y="6" width="36" height="36" stroke="var(--glow)" stroke-width="2"/>
+          <line x1="6" y1="16" x2="42" y2="16" stroke="var(--steel)" stroke-width="1.5"/>
+          <line x1="16" y1="16" x2="16" y2="42" stroke="var(--steel)" stroke-width="1.5"/>
+          <circle cx="29" cy="29" r="6" stroke="var(--iron)" stroke-width="1.5"/>
+          <line x1="11" y1="11" x2="14" y2="11" stroke="var(--iron)" stroke-width="1"/>
+          <line x1="11" y1="11" x2="11" y2="14" stroke="var(--iron)" stroke-width="1"/>
+        </svg>
+        <h3>2D Drawings</h3>
+        <p>Share a scanned drawing, PDF, or hand sketch with dimensions — we get it read and manufactured to exact tolerance by our partner workshops.</p>
+      </div>
+      <div class="card">
+        <svg width="44" height="44" viewBox="0 0 48 48" fill="none" style="margin-bottom:14px;">
+          <path d="M24 6 L42 16 L42 34 L24 44 L6 34 L6 16 Z" stroke="var(--glow)" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M24 6 L24 24 M24 24 L42 16 M24 24 L6 16 M24 24 L24 44" stroke="var(--steel)" stroke-width="1.5"/>
+        </svg>
+        <h3>3D Models</h3>
+        <p>Have a 3D CAD file or reference model? Send it across — we'll match it to the right pattern, casting and machining process for production.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="quote-bar" id="quoteBar">
+  <div class="wrap">
+    <div class="qb-count"><b id="qbCount">0</b> part<span id="qbPlural">s</span> selected for quote</div>
+    <div class="qb-actions">
+      <button class="qb-clear" id="qbClear" type="button">Clear</button>
+      <a class="btn btn-solid" id="qbSend" href="#" target="_blank" rel="noopener">Send quote request</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; width:100%; flex-wrap:wrap; gap:8px;">
+    <span>© <span id="year"></span> Shiv Foundry Traders, Kanpur Nagar</span>
+    <span>Sourcing · Casting · Fabrication · Patterns</span>
+  </div>
+</footer>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const burger = document.getElementById('burgerBtn');
+  const navlinks = document.getElementById('navlinks');
+  burger.addEventListener('click', () => navlinks.classList.toggle('open'));
+  navlinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navlinks.classList.remove('open')));
+
+  // Rotate through the 4 hero videos inside the contained frame, one after another, looping back to the first
+  const heroVideos = ['hero-video-1.mp4', 'hero-video-2.mp4', 'hero-video-3.mp4', 'hero-video-4.mp4'];
+  let heroVideoIndex = 0;
+  const heroVideoEl = document.getElementById('heroVideo');
+  if (heroVideoEl) {
+    heroVideoEl.addEventListener('ended', () => {
+      heroVideoIndex = (heroVideoIndex + 1) % heroVideos.length;
+      heroVideoEl.src = heroVideos[heroVideoIndex];
+      heroVideoEl.play();
+    });
+  }
+
+  /* =========================================================
+     PRODUCT CATALOG — edit this array to change names, material
+     or MOQ. No fixed "price" field — pricing is quoted per
+     enquiry since it depends on size, material grade and quantity.
+     ========================================================= */
+  const WA_NUM = '919621329042';
+  const PRODUCTS = [
+    { name:'Pump Impeller',            img:'pump-impeller.jpg',            material:'C.I. / Bronze', moq:'1 pc',  section:'disc',  draw:'M100 82 L130 30 M100 82 L155 100 M100 82 L130 170 M100 82 L70 170 M100 82 L45 100 M100 82 L70 30|C100,100,85|C100,100,18|L100,15,100,82|T104,45,R85' },
+    { name:'Pump Casting',             img:'pump-casting.jpg',             material:'C.I.',           moq:'1 pc',  section:'block' },
+    { name:'End Cover',                img:'end-cover.jpg',                material:'C.I.',           moq:'1 pc',  section:'disc' },
+    { name:'Bush',                     img:'bush.jpg',                     material:'C.I. / Brass',   moq:'2 pcs', section:'ring' },
+    { name:'Shaft',                    img:'shaft.jpg',                    material:'MS / EN8',       moq:'1 pc',  section:'bar' },
+    { name:'Housing',                  img:'housing.jpg',                  material:'C.I.',           moq:'1 pc',  section:'block' },
+    { name:'C.I. Casting Bush',        img:'ci-casting-bush.jpg',          material:'Cast Iron',      moq:'2 pcs', section:'ring' },
+    { name:'Aluminium Casting Pulley', img:'aluminium-casting-pulley.jpg', material:'Aluminium',      moq:'1 pc',  section:'disc' },
+    { name:'Brass Bush',               img:'brass-bush.jpg',               material:'Brass',          moq:'2 pcs', section:'ring' },
+    { name:'Brass Ring',               img:'brass-ring.jpg',               material:'Brass',          moq:'2 pcs', section:'ring' },
+    { name:'MS Plate',                 img:'ms-plate.jpg',                 material:'Mild Steel',     moq:'10 kg', section:'plate' }
+  ];
+
+  function waLink(text){ return 'https://wa.me/' + WA_NUM + '?text=' + encodeURIComponent(text); }
+
+  // Generic cross-section illustrations (schematic, not to exact CAD scale) — one hatch pattern per shape family
+  function sectionSVG(type, uid){
+    const hatchId = 'hatch' + uid;
+    const defs = '<defs><pattern id="' + hatchId + '" width="6" height="6" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">'
+      + '<line x1="0" y1="0" x2="0" y2="6" stroke="#7fb3d9" stroke-width="1.4"/></pattern></defs>';
+    let body = '';
+    if (type === 'ring') {
+      body = '<circle cx="100" cy="100" r="70" fill="url(#' + hatchId + ')" stroke="#7fb3d9" stroke-width="1.5"/>'
+        + '<circle cx="100" cy="100" r="42" fill="#0f2338" stroke="#7fb3d9" stroke-width="1.5"/>'
+        + '<line x1="100" y1="100" x2="100" y2="30" stroke="#7fb3d9" stroke-width="0.75" stroke-dasharray="4 3"/>'
+        + '<text x="103" y="60" fill="#7fb3d9" font-size="9" font-family="monospace">wall</text>';
+    } else if (type === 'disc') {
+      body = '<path d="M40 150 L40 90 Q40 60 100 55 Q160 60 160 90 L160 150 L130 150 L130 100 Q130 85 100 82 Q70 85 70 100 L70 150 Z" fill="url(#' + hatchId + ')" stroke="#7fb3d9" stroke-width="1.5"/>'
+        + '<line x1="40" y1="150" x2="160" y2="150" stroke="#7fb3d9" stroke-width="1"/>'
+        + '<text x="70" y="45" fill="#7fb3d9" font-size="9" font-family="monospace">SECTION A-A</text>';
+    } else if (type === 'block') {
+      body = '<path d="M30 160 L30 60 L170 60 L170 160 Z" fill="none" stroke="#7fb3d9" stroke-width="1.5"/>'
+        + '<path d="M30 160 L30 60 L50 60 L50 140 L150 140 L150 60 L170 60 L170 160 Z" fill="url(#' + hatchId + ')" stroke="#7fb3d9" stroke-width="1.2"/>'
+        + '<text x="65" y="45" fill="#7fb3d9" font-size="9" font-family="monospace">SECTION A-A</text>';
+    } else if (type === 'bar') {
+      body = '<rect x="70" y="20" width="60" height="160" fill="none" stroke="#7fb3d9" stroke-width="1.5"/>'
+        + '<circle cx="100" cy="35" r="30" fill="url(#' + hatchId + ')" stroke="#7fb3d9" stroke-width="1.5"/>'
+        + '<line x1="70" y1="65" x2="130" y2="65" stroke="#7fb3d9" stroke-width="1" stroke-dasharray="3 3"/>'
+        + '<text x="60" y="10" fill="#7fb3d9" font-size="9" font-family="monospace">CUT FACE</text>';
+    } else {
+      body = '<rect x="30" y="80" width="140" height="30" fill="url(#' + hatchId + ')" stroke="#7fb3d9" stroke-width="1.5"/>'
+        + '<text x="70" y="70" fill="#7fb3d9" font-size="9" font-family="monospace">SECTION A-A</text>';
+    }
+    return '<svg width="80%" height="80%" viewBox="0 0 200 200" fill="none">' + defs + body + '</svg>';
+  }
+
+  function slug(name){ return name.toLowerCase().replace(/[^a-z0-9]+/g,'-'); }
+
+  // Render the "photo / 2D drawing / cross-section" tabbed showcase cards
+  const productGrid = document.getElementById('productGrid');
+  if (productGrid) {
+    productGrid.innerHTML = PRODUCTS.map((p, i) => {
+      const id = 'v' + i;
+      return '<div class="view-card">'
+        + '<div class="view-stage">'
+          + '<div class="view-pane photo active" data-id="' + id + '" data-tab="photo"><img src="' + p.img + '" alt="' + p.name + '" loading="lazy"></div>'
+          + '<div class="view-pane draw" data-id="' + id + '" data-tab="draw">' + drawSVG(p) + '</div>'
+          + '<div class="view-pane section" data-id="' + id + '" data-tab="section">' + sectionSVG(p.section, i) + '</div>'
+        + '</div>'
+        + '<div class="view-tabs">'
+          + '<button class="active" data-id="' + id + '" data-tab="photo" type="button">PHOTO</button>'
+          + '<button data-id="' + id + '" data-tab="draw" type="button">2D DRAWING</button>'
+          + '<button data-id="' + id + '" data-tab="section" type="button">CROSS-SECTION</button>'
+        + '</div>'
+        + '<div class="cap">' + p.name + '</div>'
+        + '<div class="vprice">MOQ <b>' + p.moq + '</b> · Custom quote on drawing/sample</div>'
+      + '</div>';
+    }).join('');
+
+    productGrid.addEventListener('click', (e) => {
+      const btn = e.target.closest('.view-tabs button');
+      if (!btn) return;
+      const card = btn.closest('.view-card');
+      card.querySelectorAll('.view-tabs button').forEach(b => b.classList.toggle('active', b === btn));
+      card.querySelectorAll('.view-pane').forEach(pn => pn.classList.toggle('active', pn.dataset.tab === btn.dataset.tab));
+    });
+  }
+
+  // Simple generic 2D outline per shape family (schematic — for exact-to-drawing work, share your own drawing/sample)
+  function drawSVG(p){
+    if (p.section === 'ring') {
+      return '<svg width="80%" height="80%" viewBox="0 0 200 200" fill="none"><circle cx="100" cy="100" r="80" stroke="#7fb3d9" stroke-width="1.5"/><circle cx="100" cy="100" r="45" stroke="#7fb3d9" stroke-width="1.5"/><line x1="100" y1="20" x2="140" y2="20" stroke="#7fb3d9" stroke-width="1"/><text x="145" y="24" fill="#7fb3d9" font-size="9" font-family="monospace">OD/ID</text></svg>';
+    }
+    if (p.section === 'disc') {
+      return '<svg width="80%" height="80%" viewBox="0 0 200 200" fill="none"><circle cx="100" cy="100" r="85" stroke="#7fb3d9" stroke-width="1.5"/><circle cx="100" cy="100" r="18" stroke="#7fb3d9" stroke-width="1.5"/><path d="M100 82 L130 30 M100 82 L155 100 M100 82 L130 170 M100 82 L70 170 M100 82 L45 100 M100 82 L70 30" stroke="#7fb3d9" stroke-width="1.2"/><text x="4" y="20" fill="#7fb3d9" font-size="9" font-family="monospace">Ø170</text></svg>';
+    }
+    if (p.section === 'block') {
+      return '<svg width="75%" height="75%" viewBox="0 0 200 160" fill="none"><path d="M40 130 L40 60 Q40 30 100 30 Q160 30 160 60 L160 130 Z" stroke="#7fb3d9" stroke-width="1.5"/><line x1="40" y1="130" x2="160" y2="130" stroke="#7fb3d9" stroke-width="1"/><line x1="60" y1="130" x2="60" y2="70" stroke="#7fb3d9" stroke-width="1" stroke-dasharray="3 3"/><line x1="140" y1="130" x2="140" y2="70" stroke="#7fb3d9" stroke-width="1" stroke-dasharray="3 3"/><text x="2" y="83" fill="#7fb3d9" font-size="9" font-family="monospace">100</text></svg>';
+    }
+    if (p.section === 'bar') {
+      return '<svg width="80%" height="55%" viewBox="0 0 220 110" fill="none"><rect x="20" y="45" width="180" height="20" stroke="#7fb3d9" stroke-width="1.5"/><rect x="10" y="40" width="20" height="30" stroke="#7fb3d9" stroke-width="1"/><rect x="190" y="40" width="20" height="30" stroke="#7fb3d9" stroke-width="1"/><text x="90" y="98" fill="#7fb3d9" font-size="9" font-family="monospace">L 180</text></svg>';
+    }
+    return '<svg width="80%" height="80%" viewBox="0 0 200 200" fill="none"><circle cx="100" cy="100" r="80" stroke="#7fb3d9" stroke-width="1.5"/><path d="M40 100 Q100 60 160 100" stroke="#7fb3d9" stroke-width="1" stroke-dasharray="2 3"/><text x="75" y="12" fill="#7fb3d9" font-size="8" font-family="monospace">Ra 1.6</text></svg>';
+  }
+
+  /* ---------- QUOTE CART: tick parts, send one combined WhatsApp enquiry ---------- */
+  const cart = new Set();
+  const quoteBar = document.getElementById('quoteBar');
+  const qbCount = document.getElementById('qbCount');
+  const qbPlural = document.getElementById('qbPlural');
+  const qbSend = document.getElementById('qbSend');
+
+  function updateQuoteBar(){
+    if (!quoteBar) return;
+    const n = cart.size;
+    qbCount.textContent = n;
+    qbPlural.textContent = n === 1 ? '' : 's';
+    quoteBar.classList.toggle('show', n > 0);
+    if (n > 0) {
+      const list = Array.from(cart).join(', ');
+      qbSend.href = waLink('Hi, I would like a quote for: ' + list + '. Please share price, size options and availability.');
+    }
+  }
+  document.getElementById('qbClear')?.addEventListener('click', () => {
+    cart.clear();
+    document.querySelectorAll('.inv-check').forEach(c => c.checked = false);
+    updateQuoteBar();
+  });
+
+  // Render inventory grid — photo, price, "add to quote" checkbox, single-item enquire
+  const inventoryGrid = document.getElementById('inventoryGrid');
+  if (inventoryGrid) {
+    inventoryGrid.innerHTML = PRODUCTS.map((p, i) => {
+      return '<div class="inv-card" data-name="' + p.name.toLowerCase() + '">'
+        + '<div class="inv-thumb"><img src="' + p.img + '" alt="' + p.name + '" loading="lazy"></div>'
+        + '<div class="inv-body">'
+          + '<div class="inv-name">' + p.name + '</div>'
+          + '<label class="qty-check" style="margin-bottom:8px;"><input type="checkbox" class="inv-check" data-name="' + p.name + '"> Add to quote request</label>'
+          + '<a href="' + waLink('Hi, I\'m interested in ' + p.name + '. Please share price and availability.') + '" class="inv-btn" target="_blank" rel="noopener">Enquire</a>'
+        + '</div>'
+      + '</div>';
+    }).join('');
+
+    inventoryGrid.addEventListener('change', (e) => {
+      if (!e.target.classList.contains('inv-check')) return;
+      const name = e.target.dataset.name;
+      if (e.target.checked) cart.add(name); else cart.delete(name);
+      updateQuoteBar();
+    });
+  }
+
+  // Render price list table
+  const priceListBody = document.getElementById('priceListBody');
+  if (priceListBody) {
+    priceListBody.innerHTML = PRODUCTS.map(p => {
+      return '<tr>'
+        + '<td data-lbl="Part" class="pname">' + p.name + '</td>'
+        + '<td data-lbl="Material">' + p.material + '</td>'
+        + '<td data-lbl="MOQ" class="pmoq">' + p.moq + '</td>'
+        + '<td data-lbl=""><a class="prow-btn" href="' + waLink('Hi, please quote ' + p.name + ' for my requirement.') + '" target="_blank" rel="noopener">Request quote</a></td>'
+      + '</tr>';
+    }).join('');
+  }
+
+  // Hero search — jumps to the inventory list and filters to matching parts
+  function filterInventory(query){
+    const q = query.trim().toLowerCase();
+    document.querySelectorAll('#inventoryGrid .inv-card').forEach(card => {
+      card.style.display = (!q || card.dataset.name.includes(q)) ? '' : 'none';
+    });
+  }
+  const partSearchForm = document.getElementById('partSearchForm');
+  const partSearchInput = document.getElementById('partSearchInput');
+  const hasInventoryOnThisPage = !!document.getElementById('inventory');
+  function runSearch(query){
+    if (hasInventoryOnThisPage) {
+      filterInventory(query);
+      document.getElementById('inventory').scrollIntoView({behavior:'smooth'});
+    } else {
+      window.location.href = 'services.html?q=' + encodeURIComponent(query) + '#inventory';
+    }
+  }
+  if (partSearchForm) {
+    partSearchForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      runSearch(partSearchInput.value);
+    });
+  }
+  document.querySelectorAll('.search-chips button').forEach(chip => {
+    chip.addEventListener('click', () => {
+      if (partSearchInput) partSearchInput.value = chip.dataset.q;
+      runSearch(chip.dataset.q);
+    });
+  });
+
+  // Local search box on the inventory/services page itself
+  const invSearchForm = document.getElementById('invSearchForm');
+  const invSearchInput = document.getElementById('invSearchInput');
+  if (invSearchForm && invSearchInput) {
+    invSearchForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      filterInventory(invSearchInput.value);
+    });
+    invSearchInput.addEventListener('input', () => filterInventory(invSearchInput.value));
+  }
+  // If we arrived here from the homepage search (services.html?q=...), apply it
+  if (hasInventoryOnThisPage) {
+    const urlQ = new URLSearchParams(window.location.search).get('q');
+    if (urlQ) {
+      if (invSearchInput) invSearchInput.value = urlQ;
+      filterInventory(urlQ);
+      setTimeout(() => document.getElementById('inventory').scrollIntoView({behavior:'smooth'}), 200);
+    }
+  }
+
+  // Quick poll — client-side, stored per visitor's browser
+  (function(){
+    const STORAGE_KEY = 'sft_poll_votes_v2';
+    const VOTED_KEY = 'sft_poll_voted_v2';
+    const defaultVotes = { repair: 10, new: 42, bulk: 20, assembly: 28 };
+
+    function getVotes(){
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : Object.assign({}, defaultVotes);
+      } catch(e){ return Object.assign({}, defaultVotes); }
+    }
+    function saveVotes(v){
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(v)); } catch(e){}
+    }
+    function renderPoll(){
+      const votes = getVotes();
+      const total = Object.values(votes).reduce((a,b) => a+b, 0) || 1;
+      document.querySelectorAll('.poll-btn').forEach(btn => {
+        const opt = btn.getAttribute('data-option');
+        const pct = Math.round((votes[opt] / total) * 100);
+        btn.querySelector('.poll-bar-fill').style.width = pct + '%';
+        btn.querySelector('.poll-pct').textContent = pct + '%';
+      });
+    }
+    renderPoll();
+
+    const alreadyVoted = localStorage.getItem(VOTED_KEY);
+    const pollNote = document.getElementById('pollNote');
+    if (alreadyVoted) {
+      document.querySelectorAll('.poll-btn').forEach(btn => {
+        btn.disabled = true;
+        if (btn.getAttribute('data-option') === alreadyVoted) btn.classList.add('voted');
+      });
+      if (pollNote) pollNote.textContent = 'Thanks for voting! Here is what visitors are asking for.';
+    }
+
+    document.querySelectorAll('.poll-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (localStorage.getItem(VOTED_KEY)) return;
+        const opt = btn.getAttribute('data-option');
+        const votes = getVotes();
+        votes[opt] = (votes[opt] || 0) + 1;
+        saveVotes(votes);
+        localStorage.setItem(VOTED_KEY, opt);
+        renderPoll();
+        document.querySelectorAll('.poll-btn').forEach(b => { b.disabled = true; });
+        btn.classList.add('voted');
+        if (pollNote) pollNote.textContent = 'Thanks for voting! Here is what visitors are asking for.';
+      });
+    });
+  })();
+</script>
+</body>
+</html>
