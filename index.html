@@ -7,7 +7,6 @@
 <meta name="keywords" content="tool repair Kanpur, machine parts trader Kanpur, bulk manufacturing order Kanpur, white metal bearing Kanpur, casting fabrication Kanpur, pump impeller supplier, pattern making Kanpur, C.I. casting trader, machine maintenance Kanpur, assembly service Kanpur">
 <title>Shiv Foundry Traders — Casting, Fabrication & Pattern Works</title>
 <link rel="preload" as="video" href="hero-video-1.mp4" type="video/mp4">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -255,6 +254,47 @@
   .wgrid .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
   @media (max-width:900px){ .wgrid{grid-template-columns:repeat(4,1fr);} }
   @media (max-width:600px){ .wgrid{grid-template-columns:repeat(3,1fr);} }
+
+  /* ---------- SHOP-FLOOR SHOWCASE (Instagram/FB style slider) ---------- */
+  .insta-carousel-wrap{position:relative; display:flex; align-items:center; gap:10px;}
+  .insta-track{
+    display:flex; gap:18px; overflow-x:auto; scroll-snap-type:x mandatory;
+    scroll-behavior:smooth; padding:6px 2px 18px; -webkit-overflow-scrolling:touch;
+  }
+  .insta-track::-webkit-scrollbar{height:6px;}
+  .insta-track::-webkit-scrollbar-thumb{background:var(--line-dark); border-radius:6px;}
+  .insta-card{
+    flex:0 0 300px; scroll-snap-align:start; background:#fff;
+    border:1px solid var(--line-dark); border-radius:12px; overflow:hidden;
+    box-shadow:0 2px 14px rgba(23,24,26,0.07);
+  }
+  .insta-card-head{display:flex; align-items:center; gap:10px; padding:12px 14px;}
+  .insta-avatar{
+    width:34px; height:34px; border-radius:50%; background:var(--glow); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Barlow Condensed'; font-weight:800; font-size:1rem; flex-shrink:0;
+  }
+  .insta-card-head .h-name{font-size:0.86rem; font-weight:700; color:var(--iron);}
+  .insta-card-head .h-sub{font-size:0.68rem; color:var(--steel-light);}
+  .insta-photo{width:100%; aspect-ratio:1/1; background:var(--paper-2); overflow:hidden;}
+  .insta-photo img{width:100%; height:100%; object-fit:cover; display:block;}
+  .insta-actions{display:flex; align-items:center; gap:14px; padding:11px 14px 2px; color:var(--iron);}
+  .insta-actions svg{width:21px; height:21px;}
+  .insta-caption{padding:12px 14px 15px; font-size:0.83rem; color:var(--iron); line-height:1.45;}
+  .insta-caption b{font-weight:700;}
+  .insta-nav{
+    background:var(--iron); color:var(--paper); border:none; width:36px; height:36px;
+    border-radius:50%; font-size:1.3rem; cursor:pointer; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; line-height:0;
+  }
+  .insta-nav:hover{background:var(--glow); color:var(--iron);}
+  .insta-dots{display:flex; gap:6px; justify-content:center; margin-top:16px;}
+  .insta-dots span{width:6px; height:6px; border-radius:50%; background:var(--line-dark); cursor:pointer; transition:background 0.2s, transform 0.2s;}
+  .insta-dots span.active{background:var(--glow); transform:scale(1.3);}
+  @media (max-width:600px){
+    .insta-card{flex:0 0 78vw;}
+    .insta-nav{display:none;}
+  }
 
   /* ---------- ABOUT ---------- */
   .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;}
@@ -650,6 +690,25 @@
   </div>
 </section>
 
+<section class="section" id="shopfloor" style="padding-top:56px; padding-bottom:56px;">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="kicker">WHAT WE SUPPLY</div>
+        <h2>Parts we deliver, every single day.</h2>
+      </div>
+      <p>Swipe through — a look at the components we regularly supply, built to spec.</p>
+    </div>
+    <div class="insta-carousel-wrap">
+      <button class="insta-nav prev" onclick="instaScroll(-1)" aria-label="Previous photo">&#8249;</button>
+      <div class="insta-track" id="instaTrack"></div>
+      <button class="insta-nav next" onclick="instaScroll(1)" aria-label="Next photo">&#8250;</button>
+    </div>
+    <div class="insta-dots" id="instaDots"></div>
+    <p style="margin-top:20px; color:var(--steel); font-size:0.88rem; max-width:62ch;">Every part shown here is checked against your drawing or sample before it leaves our hands — coordinated end-to-end through our trusted network of foundries and machining workshops around Kanpur.</p>
+  </div>
+</section>
+
 <section class="strip">
   <div class="wrap">
     <div class="item"><div class="big">100+</div><div class="lbl">Product lines manufactured</div></div>
@@ -1018,6 +1077,104 @@
       heroVideoIndex = (heroVideoIndex + 1) % heroVideos.length;
       heroVideoEl.src = heroVideos[heroVideoIndex];
       heroVideoEl.play();
+    });
+  }
+
+  /* =========================================================
+     SHOP-FLOOR SHOWCASE — Instagram/Facebook style photo slider.
+     Add/remove entries here to change what shows in the slider.
+     ========================================================= */
+  const SHOWCASE = [
+    { img:'image/shiv-part-01.jpg', caption:'Precision-turned collar sleeve with flanged bore — available in stock sizes.' },
+    { img:'image/shiv-part-02.jpg', caption:'Roller bearing cage stack — one of our regular supply lines.' },
+    { img:'image/shiv-part-03.jpg', caption:'Threaded flange fittings, available to size — three variants shown.' },
+    { img:'image/shiv-part-04.jpg', caption:'Brass rings, ready for assembly — bulk quantities in stock.' },
+    { img:'image/shiv-part-05.jpg', caption:'A fresh batch of bushes, lined up and ready for dispatch.' },
+    { img:'image/shiv-part-06.jpg', caption:'Pinion shafts with gear teeth — precision power-transmission parts.' },
+    { img:'image/shiv-part-07.jpg', caption:'Forged pin and block components, delivered to drawing.' },
+    { img:'image/shiv-part-08.jpg', caption:'Helical gear on shaft — a single continuous turned-and-cut assembly.' },
+    { img:'image/shiv-part-09.jpg', caption:'A cluster of splined shafts and gears from a recent bulk order.' },
+    { img:'image/shiv-part-10.jpg', caption:'Close-up of a precision-cut helical gear, ready for gearbox assembly.' },
+    { img:'image/shiv-part-11.jpg', caption:'Flanged sleeves and bushes — every size, built to your spec.' },
+    { img:'image/shiv-part-12.jpg', caption:'Hex reducer bushing — threaded both ends, ready to fit.' },
+    { img:'image/shiv-part-13.jpg', caption:'Spacer set in graduated sizes — pick the size that fits your job.' },
+    { img:'image/shiv-part-14.jpg', caption:'Shaft-and-hub assembly with splined ends, delivered ready to use.' },
+    { img:'image/shiv-part-15.jpg', caption:'Machined end covers / flange plates, faced and bored to size.' },
+    { img:'image/shiv-part-16.jpg', caption:'Splined output flange — a custom part built to a customer drawing.' },
+    { img:'image/shiv-part-17.jpg', caption:'Long roller shafts with splined ends, ground and polished.' },
+    { img:'image/shiv-part-18.jpg', caption:'Bronze bush assortment — our most requested bearing material.' }
+  ];
+
+  function renderShowcase(){
+    const track = document.getElementById('instaTrack');
+    const dotsWrap = document.getElementById('instaDots');
+    if (!track) return;
+    track.innerHTML = SHOWCASE.map((s) => {
+      return '<div class="insta-card">'
+        + '<div class="insta-card-head">'
+          + '<span class="insta-avatar">SF</span>'
+          + '<div><div class="h-name">Shiv Foundry Traders</div><div class="h-sub">Product update</div></div>'
+        + '</div>'
+        + '<div class="insta-photo"><img src="' + s.img + '" alt="Shiv Foundry Traders machined part" loading="lazy"></div>'
+        + '<div class="insta-caption"><b>shivfoundrytraders</b> ' + s.caption + '</div>'
+      + '</div>';
+    }).join('');
+
+    dotsWrap.innerHTML = SHOWCASE.map((_, i) =>
+      '<span data-i="' + i + '"' + (i === 0 ? ' class="active"' : '') + '></span>'
+    ).join('');
+
+    dotsWrap.addEventListener('click', (e) => {
+      const d = e.target.closest('span');
+      if (!d) return;
+      clearInterval(instaTimer);
+      instaIndex = +d.dataset.i;
+      scrollToIndex();
+      instaTimer = startInstaTimer();
+    });
+  }
+  renderShowcase();
+
+  let instaIndex = 0;
+  const instaTrackEl = document.getElementById('instaTrack');
+
+  function updateDots(){
+    document.querySelectorAll('#instaDots span').forEach((d, i) => d.classList.toggle('active', i === instaIndex));
+  }
+  function scrollToIndex(){
+    const card = instaTrackEl.children[instaIndex];
+    if (card) instaTrackEl.scrollTo({ left: card.offsetLeft - 4, behavior: 'smooth' });
+    updateDots();
+  }
+  window.instaScroll = function(dir){
+    instaIndex = Math.max(0, Math.min(SHOWCASE.length - 1, instaIndex + dir));
+    scrollToIndex();
+    clearInterval(instaTimer);
+    instaTimer = startInstaTimer();
+  };
+  function startInstaTimer(){
+    return setInterval(() => {
+      instaIndex = (instaIndex + 1) % SHOWCASE.length;
+      scrollToIndex();
+    }, 3200);
+  }
+  let instaTimer = startInstaTimer();
+
+  if (instaTrackEl) {
+    instaTrackEl.addEventListener('mouseenter', () => clearInterval(instaTimer));
+    instaTrackEl.addEventListener('mouseleave', () => { instaTimer = startInstaTimer(); });
+    instaTrackEl.addEventListener('touchstart', () => clearInterval(instaTimer), { passive: true });
+    instaTrackEl.addEventListener('scroll', () => {
+      clearTimeout(instaTrackEl._settleTimer);
+      instaTrackEl._settleTimer = setTimeout(() => {
+        let closest = 0, min = Infinity;
+        Array.from(instaTrackEl.children).forEach((c, i) => {
+          const diff = Math.abs(c.offsetLeft - instaTrackEl.scrollLeft);
+          if (diff < min) { min = diff; closest = i; }
+        });
+        instaIndex = closest;
+        updateDots();
+      }, 120);
     });
   }
 
