@@ -140,6 +140,52 @@
   }
   .quote-btn:hover{background:var(--glow); color:var(--iron);}
   .no-results{text-align:center; color:var(--steel); padding:40px 0; grid-column:1/-1;}
+  .product{cursor:pointer; transition:box-shadow 0.15s ease, transform 0.15s ease;}
+  .product:hover{box-shadow:0 6px 18px rgba(23,24,26,0.12); transform:translateY(-2px);}
+  .view-more{margin-top:10px; font-size:0.78rem; color:var(--glow-dim); font-weight:600;}
+
+  /* ---------- PART DETAIL MODAL ---------- */
+  .modal-overlay{
+    display:none; position:fixed; inset:0; z-index:200;
+    background:rgba(15,16,17,0.72); padding:24px;
+    align-items:flex-start; justify-content:center; overflow-y:auto;
+  }
+  .modal-overlay.open{display:flex;}
+  .modal-box{
+    background:#fff; max-width:640px; width:100%; border-radius:10px;
+    margin-top:40px; overflow:hidden; position:relative;
+    animation:modalIn 0.18s ease;
+  }
+  @keyframes modalIn{from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);}}
+  .modal-close{
+    position:absolute; top:14px; right:14px; background:var(--iron); color:var(--paper);
+    border:none; width:32px; height:32px; border-radius:50%; font-size:1.1rem;
+    cursor:pointer; z-index:2; line-height:1;
+  }
+  .modal-close:hover{background:var(--glow);}
+  .modal-image{width:100%; aspect-ratio:16/9; background:var(--paper-2); position:relative; overflow:hidden;}
+  .modal-image img{width:100%; height:100%; object-fit:cover;}
+  .modal-image .icon-fallback{display:none;}
+  .modal-body{padding:26px 28px 30px;}
+  .modal-body .m-cat{color:var(--glow-dim); font-size:0.76rem; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:6px;}
+  .modal-body h2{font-size:1.7rem; margin-bottom:14px; color:var(--iron);}
+  .modal-body .m-price{font-family:'Barlow Condensed'; font-size:1.3rem; font-weight:700; color:var(--glow-dim); margin-bottom:18px;}
+  .modal-body .m-price span{font-size:0.72rem; color:var(--steel-light); font-family:'Work Sans'; font-weight:400; margin-left:6px;}
+  .modal-grid{display:grid; gap:16px; margin-bottom:20px;}
+  .modal-row h4{font-size:0.78rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--steel); margin-bottom:5px; font-family:'Work Sans'; font-weight:600;}
+  .modal-row p{font-size:0.92rem; color:var(--iron); line-height:1.55;}
+  .modal-tags{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px;}
+  .modal-tags span{font-size:0.72rem; border:1px solid var(--line-dark); padding:4px 10px; border-radius:20px; color:var(--steel);}
+  .modal-actions{display:flex; gap:10px; flex-wrap:wrap;}
+  .modal-actions button, .modal-actions a{
+    flex:1; min-width:160px; text-align:center; padding:13px; font-weight:600; font-size:0.88rem;
+    border-radius:4px; cursor:pointer; border:1px solid var(--iron);
+  }
+  .modal-actions .m-quote{background:var(--iron); color:var(--paper);}
+  .modal-actions .m-quote:hover{background:var(--glow); border-color:var(--glow); color:var(--iron);}
+  .modal-actions .m-close2{background:#fff; color:var(--iron);}
+  .modal-actions .m-close2:hover{background:var(--paper-2);}
+  @media (max-width:600px){ .modal-box{margin-top:12px;} .modal-body{padding:20px 18px 24px;} }
 
   /* ---------- FOOTER ---------- */
   footer{
@@ -194,6 +240,48 @@
   </div>
   <p class="results-count" id="resultsCount"></p>
   <div class="products" id="productsGrid"></div>
+</div>
+
+<!-- Part detail modal -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this) closeModal()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close">&times;</button>
+    <div class="modal-image" id="modalImageWrap">
+      <img id="modalImg" src="" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <span class="icon-fallback" id="modalFallback"></span>
+    </div>
+    <div class="modal-body">
+      <div class="m-cat" id="modalCat"></div>
+      <h2 id="modalName"></h2>
+      <div class="m-price" id="modalPrice"></div>
+      <div class="modal-grid">
+        <div class="modal-row">
+          <h4>What it is</h4>
+          <p id="modalDesc"></p>
+        </div>
+        <div class="modal-row">
+          <h4>Material</h4>
+          <p id="modalMaterial"></p>
+        </div>
+        <div class="modal-row">
+          <h4>Typical uses</h4>
+          <p id="modalUses"></p>
+        </div>
+        <div class="modal-row">
+          <h4>Quality &amp; finish</h4>
+          <p id="modalQuality"></p>
+        </div>
+      </div>
+      <div class="modal-tags">
+        <span id="modalTag"></span>
+        <span id="modalMoq">Size/qty as per requirement</span>
+      </div>
+      <div class="modal-actions">
+        <a href="#" target="_blank" rel="noopener" class="m-quote" id="modalQuoteBtn">Request Quote on WhatsApp</a>
+        <button class="m-close2" onclick="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <footer>
@@ -282,6 +370,54 @@ const PARTS = [
 {name:"Rivet", tag:"Bulk Supply", cat:"Seals & Gaskets", desc:"Solid rivet for permanent sheet metal joints.", img:"images/seals-gaskets.jpg", price:"₹2/pc"},
 ];
 
+const CATEGORY_INFO = {
+"Bushes & Bearings": {
+  material: "Bronze, gunmetal, mild steel or cast iron — grade selected as per drawing and load requirement.",
+  uses: "Shaft support and wear-liner duty inside pumps, motors, gearboxes, automobile suspension and general mechanical assemblies.",
+  quality: "Turned and bored on lathe to close ID/OD tolerance; checked for roundness, concentricity and surface finish before dispatch."
+},
+"Flanges & Collars": {
+  material: "Mild steel, cast iron or forged steel, machined to the specified pressure/load class.",
+  uses: "Pipe joining, shaft-collar location, bearing retention on a shaft, and coupling of two rotating shaft ends.",
+  quality: "Faced and bored to the exact PCD, bolt-hole pattern and flatness called for on the drawing."
+},
+"Spacers & Rings": {
+  material: "Mild steel, spring steel or stainless steel depending on retaining/thrust load.",
+  uses: "Maintaining running clearance, retaining components on a shaft or in a bore, and carrying axial thrust between rotating parts.",
+  quality: "Turned or blanked to precise ID-OD-thickness; edges deburred, with consistent spring temper on retaining/snap rings."
+},
+"Brackets & Pulleys": {
+  material: "Mild steel, cast iron or forged steel, cast or fabricated as per part complexity.",
+  uses: "Structural mounting, load-bearing support, belt/chain power transmission (pulleys, sprockets) and general fixture holding.",
+  quality: "Cast or fabricated to drawing, machined at critical bores and faces, with load capacity checked for lifting/holding items."
+},
+"Pins & Fasteners": {
+  material: "EN8/EN9 carbon steel, stainless steel or spring steel, hardened where the application needs it.",
+  uses: "Locating and locking mating components, shaft-to-hub connection, and pivot points in linkages and suspension parts.",
+  quality: "Turned or cold-formed to tight diameter tolerance; case-hardened or heat-treated on load-bearing pins."
+},
+"Washers & Nuts": {
+  material: "Mild steel, high-tensile steel or stainless steel, per the bolt grade being used.",
+  uses: "Distributing load under a bolt/nut head, maintaining fastener tension and preventing loosening under vibration.",
+  quality: "Manufactured to standard thread pitch and hardness class, with zinc-plated or plain finish as specified."
+},
+"Bolts & Screws": {
+  material: "Mild steel, high-tensile steel (Grade 8.8/10.9) or stainless steel.",
+  uses: "General fastening, structural assembly, machine base/foundation mounting and lifting or rigging attachment points.",
+  quality: "Threaded to standard pitch on precision dies; proof-load and torque checked for structural/critical joints."
+},
+"Shafts & Sleeves": {
+  material: "Mild steel, EN8 or EN19 alloy steel, ground where a running fit is required.",
+  uses: "Power transmission between components, shaft-to-hub keying, and protective or mounting sleeves fitted over a shaft.",
+  quality: "Turned and ground to the running or interference fit tolerance on the drawing; checked for straightness and finish."
+},
+"Seals & Gaskets": {
+  material: "Rubber, fibre, mild steel or brass, selected to suit the fluid, pressure and temperature of the application.",
+  uses: "Sealing between two flanges, closing unused ports, joining threaded pipe fittings, and permanent sheet-metal joints (rivets).",
+  quality: "Cut or turned to exact size and thickness; checked for flatness, surface finish and a leak-tight fit."
+}
+};
+
 const CAT_SVG = {
 "Bushes & Bearings": '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="38" fill="none" stroke="#17181a" stroke-width="6"/><circle cx="50" cy="50" r="20" fill="none" stroke="#d9642c" stroke-width="6"/><circle cx="50" cy="50" r="6" fill="#17181a"/></svg>',
 "Flanges & Collars": '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="none" stroke="#17181a" stroke-width="5"/><circle cx="50" cy="50" r="14" fill="none" stroke="#17181a" stroke-width="5"/><circle cx="50" cy="18" r="5" fill="#d9642c"/><circle cx="82" cy="50" r="5" fill="#d9642c"/><circle cx="50" cy="82" r="5" fill="#d9642c"/><circle cx="18" cy="50" r="5" fill="#d9642c"/></svg>',
@@ -335,8 +471,9 @@ function renderProducts(){
     return;
   }
 
-  grid.innerHTML = list.map(part => {
-    return '<div class="product">'
+  grid.innerHTML = list.map((part, i) => {
+    const realIndex = PARTS.indexOf(part);
+    return '<div class="product" data-idx="' + realIndex + '" onclick="openModal(' + realIndex + ')">'
       + '<div class="product-image">'
         + '<img src="' + part.img + '" alt="' + part.name + '" loading="lazy" '
           + 'onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">'
@@ -349,10 +486,51 @@ function renderProducts(){
         + '<span class="price-note">+GST, size/qty based</span>'
       + '</div>'
       + '<span class="tag">' + part.tag + '</span>'
-      + '<button class="quote-btn" onclick="window.open(\'' + waLink('Hi, I would like a quote for ' + part.name + ' (' + part.cat + '). Please share price, size options and availability.') + '\', \'_blank\')">Request Quote</button>'
+      + '<div class="view-more">View details, material &amp; uses →</div>'
+      + '<button class="quote-btn" onclick="event.stopPropagation(); window.open(\'' + waLink('Hi, I would like a quote for ' + part.name + ' (' + part.cat + '). Please share price, size options and availability.') + '\', \'_blank\')">Request Quote</button>'
     + '</div>';
   }).join("");
 }
+
+/* ---------- PART DETAIL MODAL ---------- */
+function openModal(idx){
+  const part = PARTS[idx];
+  if (!part) return;
+  const info = CATEGORY_INFO[part.cat] || {};
+
+  document.getElementById("modalCat").textContent = part.cat;
+  document.getElementById("modalName").textContent = part.name;
+  document.getElementById("modalPrice").innerHTML = "Starting " + part.price + "<span>+GST, size/qty based</span>";
+  document.getElementById("modalDesc").textContent = part.desc;
+  document.getElementById("modalMaterial").textContent = info.material || "Material grade as per drawing / requirement.";
+  document.getElementById("modalUses").textContent = info.uses || "General mechanical and industrial applications.";
+  document.getElementById("modalQuality").textContent = info.quality || "Manufactured and checked to the specified drawing before dispatch.";
+  document.getElementById("modalTag").textContent = part.tag;
+
+  const img = document.getElementById("modalImg");
+  const fallback = document.getElementById("modalFallback");
+  img.style.display = "block";
+  fallback.style.display = "none";
+  img.src = part.img;
+  img.alt = part.name;
+  fallback.innerHTML = CAT_SVG[part.cat] || "";
+
+  document.getElementById("modalQuoteBtn").href = waLink(
+    "Hi, I would like a quote for " + part.name + " (" + part.cat + "). Please share price, size options and availability."
+  );
+
+  document.getElementById("modalOverlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeModal(){
+  document.getElementById("modalOverlay").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeModal();
+});
 
 renderFilters();
 renderProducts();
